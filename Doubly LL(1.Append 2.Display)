@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include<stdlib.h>
+void insert();
+void display();
+struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev;
+};
+struct node *head=NULL,*current,*nextnode;
+int c;
+int main()
+{
+    do{
+        printf("\n1.insert 2.display 4.exit");
+        printf("\nenter your choice: ");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1:
+                insert();
+                break;
+            case 2:
+                display();
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("invalid choice");
+                
+        }
+    }while(c!=0);
+
+    return 0;
+}
+void insert()
+{
+    struct node *newnode,*temp;
+    int ch=1;
+    while(ch)
+    {
+    newnode=(struct node*)malloc(sizeof(struct node));
+    printf("enter data:");
+    scanf("%d",&newnode->data);
+    newnode->prev=NULL;
+    newnode->next=NULL;
+    if(head==NULL){
+        head=temp=newnode;
+    }
+    else
+    {
+        temp->next=newnode;
+        newnode->prev=temp;
+        temp=newnode;
+    }
+    printf("do u want to continue?");
+    scanf("%d",&ch);
+    }
+}
+void display()
+{
+    struct node *temp;
+    temp=head;
+    while(temp!=NULL)
+    {
+        printf("%d",temp->data);
+        temp=temp->next;
+    }
+}
