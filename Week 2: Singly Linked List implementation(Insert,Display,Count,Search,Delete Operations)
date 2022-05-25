@@ -1,0 +1,147 @@
+#include <stdio.h>
+#include<stdlib.h>
+void insert();
+void display();
+void listcount();
+void search();
+void delete();
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head=NULL,*newnode,*temp;
+int ch,count=0,pos;
+void main()
+{
+    int c;
+    do
+    {
+   
+    printf("\n1.INSERT 2.DISPLAY 3.ELEMENT COUNT 4.SEARCH AN ELEMENT 5.DELETION 6.EXIT \n");
+    printf("enter your choice:  ");
+    scanf("%d",&c);
+   
+    switch(c)
+    {
+        case 1:
+            insert();
+            break;
+        case 2:
+            display();
+            break;
+        case 3:
+            listcount();
+            break;
+        case 4:
+            search();
+            break;
+        case 5:
+            delete();
+            break;
+        case 6:
+            printf("THANK YOU!!\n");
+            exit(0);
+        default:
+            printf("Invalid choice !!\n TRY AGAIN\n");
+    }
+    }while(c!=0);
+   
+}
+
+
+void insert()
+{   
+    do
+    {
+        newnode=(struct node *)malloc(sizeof(struct node));
+        printf("enter data to store:");
+        scanf("%d",&newnode->data);
+        newnode->next=NULL;
+        if(head==NULL)
+        {
+            head=temp=newnode;
+        }
+        else
+        {
+            temp->next=newnode;
+            temp=newnode;
+        }
+        printf("Do you want to continue?(1(yes)/0(no))");
+        scanf("%d",&ch);
+    }while(ch==1);
+}
+void display()
+{
+    if(head==NULL)
+    {
+        printf("empty linked list");
+    }
+    else
+    {   
+        printf("ELEMENTS IN THE LIST:\n");
+        temp=head;
+        while(temp!=NULL)
+        {
+            printf("%d\t",temp->data);
+            temp=temp->next;
+            count++;
+        }
+    }   
+}
+void listcount()
+{
+    printf("The no of elements in the linked list is: %d\n",count);
+}
+
+void search()
+{
+    temp=head;
+    int pos=1,n;
+    printf("\nEnter element to search:");
+    scanf("%d",&n);
+        while(temp!=NULL)
+        {   
+            if(temp->data==n)
+            {
+                printf("Element found at position:%d\t",pos);
+                break;   
+            }
+            else if(temp->next==NULL)
+            {
+		printf("element not found!!\n"); 
+		printf("Try again\n");
+		search();
+		break;
+	    }
+            else{
+            	temp=temp->next;
+            }    
+            pos++;
+            count++;
+       
+    }    
+}
+void delete()
+{
+	struct node *nextnode,*temp;
+	int i=1;
+	printf("enter position of element to be deleted:");
+	scanf("%d",&pos);
+	temp=head;
+	if(head==NULL)
+	{
+		printf("Empty linked list!!");
+	}
+	else{
+		while(i<pos-1)
+		{
+			temp=temp->next;
+			i++;
+		}
+		nextnode=temp->next;
+		temp->next=nextnode->next;
+		printf("deleted element is :%d ",nextnode->data);
+		free(nextnode);
+	}
+}
