@@ -1,0 +1,231 @@
+#include <stdio.h>
+    #include<stdlib.h>
+    void append();
+    void display();
+    void reverse();
+    void search();
+    void insertatfront();
+    void insertatend();
+    void delhead();
+    void deltail();
+    void delatrandpos();
+    struct node
+    {
+        int data;
+        struct node *next;
+        struct node *prev;
+    };
+    struct node *head=NULL,*current,*nextnode,*temp,*newnode;
+    int c,count=0;
+    int main()
+    {
+        do{
+            printf("\n1.APPEND 2.FORWARD DISPLAY 3.SEARCH 4.INSERT AT FRONT 5.INSERT AT END 6.DELETE HEAD 7.DELETE TAIL(LAST NODE) 8. DELETE AT RANDOM POSITION 9.BACKWARD DISPLAY 10.EXIT");
+            printf("\nenter your choice: ");
+            scanf("%d",&c);
+            switch(c)
+            {
+                case 1:
+                    append();
+                    break;
+                case 2:
+                    display();
+                    break;
+                case 3:
+                        search();
+                        break;
+                case 4:
+                        insertatfront();
+                        break;
+                case 5:
+                        insertatend();
+                    break;
+                case 6:
+                    delhead();
+                    break;
+                case 7:
+                    deltail();
+                    break;
+                case 8:
+                    delatrandpos();
+                    break;
+                case 9:
+                    reverse();
+                    break;
+                case 10:
+                    printf("Thank You!!");
+                    exit(0);
+                default:
+                    printf("invalid choice");
+                   
+            }
+        }while(c!=0);
+   
+        return 0;
+    }
+    void append()
+    {
+        struct node *temp;
+        int ch=1;
+        while(ch)
+        {
+        newnode=(struct node*)malloc(sizeof(struct node));
+        printf("enter data:");
+        scanf("%d",&newnode->data);
+        newnode->prev=NULL;
+        newnode->next=NULL;
+        if(head==NULL){
+            head=temp=newnode;
+        }
+        else
+        {
+            temp->next=newnode;
+            newnode->prev=temp;
+            temp=newnode;
+        }
+        printf("do u want to append data again?(1(yes)/0(no))");
+        scanf("%d",&ch);
+        }
+    }
+    void search()
+    {
+            temp=head;
+        int pos=1,n;
+        printf("\nEnter element to search:");
+        scanf("%d",&n);
+            while(temp!=NULL)
+            {  
+                if(temp->data==n)
+                {
+                    printf("Element found at position:%d\t",pos);
+                    break;  
+                }
+                else if(temp->next==NULL)
+                {
+                                    printf("element not found!!\n");
+                                    printf("Try again\n");
+                                    search();
+                                    break;
+                           }
+                else{
+                    temp=temp->next;
+                }   
+                pos++;
+                count++;
+           }
+    }
+    void display()
+    {
+        struct node *temp;
+        temp=head;
+        printf("ELEMENTS IN THE LIST:\n");
+        while(temp!=NULL)
+        {
+             printf("%d\t",temp->data);
+            temp=temp->next;
+        }
+    }
+    void insertatfront()
+    {
+        newnode=(struct node*)malloc(sizeof(struct node));
+        printf("enter data to insert:");
+        scanf("%d",&newnode->data);
+        if(head==NULL)
+        {
+            head=newnode;
+        }
+        else
+        {
+            newnode->next=head;
+            head=newnode;
+        }
+        printf("\nCURRENT ");
+            display();
+    }
+    void insertatend()
+    {
+       newnode=(struct node*)malloc(sizeof(struct node));
+       printf("enter data to insert:");
+       scanf("%d",&newnode->data);
+       newnode->next=NULL;
+       temp=head;
+       while(temp->next!=NULL)
+       {
+                temp=temp->next;
+            }
+            temp->next=newnode;
+        printf("\nCURRENT ");
+            display();
+    }
+    void delhead()
+    {
+            struct node *temp;
+            temp=head;
+            if(head==NULL)
+            {
+                    printf("List is empty!!");
+            }
+            else{
+                head=head->next;
+                printf("Head deleted i.e %d is deleted.",temp->data);
+            }
+                free(temp);
+                printf("\nCURRENT ");
+            display();
+    }
+    void deltail()
+    {
+       struct node *prevnode,*temp;
+       temp=head;
+       while(temp->next!=NULL)
+       {
+           prevnode=temp;
+           temp=temp->next;
+       }
+       if(head==temp)
+       {
+           head=NULL;
+       }
+       else{
+           prevnode->next=NULL;
+           printf("%d is deleted",temp->data);
+       }
+       free(temp);
+       printf("\nCURRENT ");
+            display();
+    }
+    void delatrandpos()
+    {
+            int pos,i=1;
+       struct node *nextnode,*temp;
+       printf("Enter position of element to be deleted:");
+       scanf("%d",&pos);
+       temp=head;
+       while(i<pos-1)
+       {
+         temp=temp->next;
+        }
+        nextnode=temp->next;
+        temp->next=nextnode->next;
+        printf("Deleted element is :%d",nextnode->data);
+        free(nextnode);
+        printf("\nCURRENT ");
+            display();
+    }
+  void reverse()
+  {
+      struct node *prevnode,*currentnode,*nextnode;
+      prevnode=NULL;
+       currentnode=nextnode=head;
+       
+       while(nextnode!=NULL)
+       {
+               nextnode=nextnode->next;
+               currentnode->next=prevnode;
+               prevnode=currentnode;
+               currentnode=nextnode;
+       }
+       head=prevnode;
+       display();
+  }
+ 
