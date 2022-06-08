@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define n 5
+int top=-1;
+int stack[n];
+void push(int val);
+void pop();
+void findtop();
+void display();
+int isempty();
+int isfull();
+int ch=1,count=0;
+void main()
+{
+		int c;
+
+		printf("\tSTACK IMPLEMENTATION\n");
+		do
+		{
+		printf("\nenter your choice: 1.PUSH 2.POP 3.DISPLAY 4.FIND TOP 5.EXIT: ");
+		scanf("%d",&c);
+		int s;
+		
+		switch(c)
+		{
+			case 1:
+					do{
+						printf("Enter element to push: ");
+						scanf("%d",&s);
+						push(s);
+						
+						printf("\nDo you want to continue?:(1(yes)/0(no)):");
+						scanf("%d",&ch);
+					}while(ch==1 && count<n);
+					if(isfull()){
+						printf("Overflow!!");
+					}
+	
+					break;
+			case 2:
+					pop();
+					break;
+			case 3:
+					display();
+					break;
+			case 4:
+					findtop();
+					break;
+			case 5:
+					printf("Thank you!!");
+					exit(0);
+			default:
+				printf("invalid choice");
+				printf("TRY AGAIN");
+		}
+	}while(c!=0);
+}
+
+
+
+void push(int val)
+{	
+	
+	if(count<n){
+		top++;
+		stack[top]=val;
+		printf("\n%d pushed.",stack[top]);
+		count++;
+	}
+	
+	
+}
+void pop()
+{
+	if(isempty())
+	{
+		printf("Underflow");
+	}
+  else{
+  	printf("\n%d popped",stack[top]);
+  	stack[top]=-1;
+  	top--;
+  	count--;
+  	printf("\nCurrent ");
+  	display();
+  }
+}
+int isfull(){
+	if(top==n-1) 
+		return 1;
+	else
+		return 0;
+}
+int isempty()
+{
+	if(top==-1)
+	return 1;
+	else
+	return 0;
+}
+void findtop()
+{
+	printf("\n Top Position:%d",top);
+	printf("\n Top value:%d",stack[top]);
+}
+void display()
+{
+	if(isempty())
+	{
+		printf("Stack empty!!");
+	}
+	int i,x;
+	x=top;
+	printf("Elements in stack:\n");
+	for(i=x;i>=0;i--){
+		printf("\n%d",stack[i]);
+	}
+}
+
+
+
