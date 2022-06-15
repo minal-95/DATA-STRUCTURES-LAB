@@ -1,0 +1,116 @@
+		#include <stdio.h>
+    #include<stdlib.h>
+    #define n 5
+    void enqueue();
+    void qdisplay();
+    void dequeue();
+    struct node
+    {
+        int data;
+        struct node *next;
+    };
+    struct node *head=NULL,*newnode,*temp;
+    int ch,count=0;
+    void main()
+    {
+        int c;
+        
+        do
+        {
+      
+        printf("\n1.ENQUEUE 2.DISPLAY 3.DEQUEUE 4.EXIT \n");
+        printf("enter your choice:  ");
+        scanf("%d",&c);
+      
+        switch(c)
+        {
+            case 1:
+                enqueue();
+                break;
+            case 2:
+                qdisplay();
+                break;
+
+            case 3:
+                dequeue();
+                break;
+                   
+            case 4:
+                printf("THANK YOU!!\n");
+                exit(0);
+            default:
+                printf("Invalid choice !!\n TRY AGAIN\n");
+        }
+        }while(c!=0);
+        if(count>=n){
+        	printf("QUEUE SIZE EXCEEDED!!\n");
+        }
+      
+    }
+   
+   
+    void enqueue()
+    {  
+        do
+        {
+        		
+        		if(count>=n){
+        			printf("QUEUE SIZE EXCEEDED!!\n");
+        			break;
+       			}
+       			else{
+		          newnode=(struct node *)malloc(sizeof(struct node));
+		          printf("enter data to store:");
+		          scanf("%d",&newnode->data);
+		          newnode->next=NULL;
+		          if(head==NULL)
+		          {
+		              head=temp=newnode;
+		          }
+		          else
+		          {
+		              temp->next=newnode;
+		              temp=newnode;
+		          }
+		          count++;
+		          printf("Do you want to continue?(1(yes)/0(no))");
+		          scanf("%d",&ch);
+		          
+		        }
+        }while(ch==1);
+        
+    }
+    void qdisplay()
+    {
+        if(head==NULL)
+        {
+            printf("EMPTY QUEUE");
+        }
+        else
+        {  
+            printf("ELEMENTS IN QUEUE:\n");
+            temp=head;
+            while(temp!=NULL )
+            {
+                printf("%d\n",temp->data);
+                temp=temp->next;
+               
+            }
+        }  
+    }
+    
+    void dequeue()
+    {
+        struct node *temp;
+        temp=head;
+        if(head==NULL)
+        {
+        	printf("EMPTY QUEUE!\n");
+        }
+				else{
+						head=head->next;
+						printf("Deleted element is %d",temp->data);
+       			free(temp);
+       	}
+    }
+    
